@@ -39,11 +39,11 @@ jobs:
     - name: Build Zeek Release
       run: nix -Lv build ./#zeek-release
 
-    - name: Check Zeek Plugins
-      run: nix -Lv run .#zeek-release -- -N
+    # - name: Check Zeek Plugins
+    #   run: nix -Lv run .#zeek-release -- -N
 
-    - name: Check Zeek Release Version
-      run: nix -Lv run .#zeek-release -- --version
+    # - name: Check Zeek Release Version
+    #   run: nix -Lv run .#zeek-release -- --version
 
     - name: Check Spicy
       run: |
