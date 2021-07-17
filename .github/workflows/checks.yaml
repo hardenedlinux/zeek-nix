@@ -32,7 +32,6 @@ jobs:
     - name: Run nvfetcher
       run: |
         nix -Lv develop --command nvfetcher --commit-changes
-        git push
 
     - name: Build Zeek Release
       run: nix -Lv build ./#zeek-release
@@ -50,3 +49,6 @@ jobs:
 
     - name: Check Zeek Systemd module
       run: nix -Lv build ./#zeek-vm-systemd
+
+    - name: Git Push Bumpup
+      run: git push
