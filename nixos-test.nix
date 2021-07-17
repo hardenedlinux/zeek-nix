@@ -1,8 +1,8 @@
 { makeTest, pkgs, self }:
 {
-  zeekService = makeTest
+  zeek-vm-systemd = makeTest
     {
-      name = "zeekService-vm-test";
+      name = "zeek-systemd";
       machine = { config, pkgs, ... }: {
         imports = [
           self.nixosModules.zeek

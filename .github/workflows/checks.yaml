@@ -39,19 +39,19 @@ jobs:
     - name: Build Zeek Release
       run: nix -Lv build ./#zeek-release
 
-    # - name: Check Zeek Plugins
-    #   run: nix -Lv run .#zeek-release -- -N
-
-    # - name: Check Zeek Release Version
-    #   run: nix -Lv run .#zeek-release -- --version
+    - name: Check Zeek Plugins
+      run: |
+        nix -Lv run .#zeek-release -- -N
+        nix-build | cachix push zeek
+    - name: Check Zeek Release Version
+      run: nix -Lv run .#zeek-release -- --version
 
     - name: Check Spicy
       run: |
         nix -Lv run .#zeek-release -- misc/hello.spicy
-        ./result/bin/spicyc -j misc/hello.spicy
 
     - name: Check Zeek Systemd module
-      run: nix -Lv build ./#zeek-vm-service-tests
+      run: nix -Lv build ./#zeek-vm-systemd
 
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v4

@@ -6,7 +6,7 @@
     nixpkgs.url = "nixpkgs/release-21.05";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     devshell-flake = { url = "github:numtide/devshell"; };
-    spicy-with-nix-flake = { url = "github:GTrunSec/spicy-with-nix-flake"; };
+    spicy2nix = { url = "github:GTrunSec/spicy2nix"; };
     nvfetcher = {
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +49,7 @@
               self.overlay
               devshell-flake.overlay
               nvfetcher.overlay
-              spicy-with-nix-flake.overlay
+              spicy2nix.overlay
             ];
             config = {
               allowUnsupportedSystem = true;
@@ -62,7 +62,8 @@
               zeek-release = pkgs.zeek-release;
               zeek-master = pkgs.zeek-master;
             } // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
-            zeek-vm-service-tests = pkgs.zeek-vm-tests.zeekService;
+            inherit (pkgs.zeek-vm-tests)
+              zeek-vm-systemd;
           };
 
           hydraJobs = {
