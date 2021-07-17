@@ -25,16 +25,34 @@ jobs:
 
     - name: Nix Flake Check
       run: nix -Lv flake check
+
+    - name: Run nvfetcher
+      run: |
+        nix -Lv develop --command nvfetcher --commit-changes -l ../changelog
+        # reset shake-database
+        if [ ! -z "$(git diff --stat | grep '1 file changed')" ]; then
+        git reset --hard
+        fi
+
     - name: Build Zeek Release
       run: nix -Lv build ./#zeek-release
+
     - name: Check Zeek Plugins
       run: nix -Lv run .#zeek-release -- -N
+
     - name: Check Zeek Release Version
-      run: |
-        nix -Lv run .#zeek-release -- --version
+      run: nix -Lv run .#zeek-release -- --version
+
     - name: Check Spicy
       run: |
         nix -Lv run .#zeek-release -- misc/hello.spicy
         ./result/bin/spicyc -j misc/hello.spicy
+
     - name: Check Zeek Systemd module
       run: nix -Lv build ./#zeek-vm-service-tests
+
+    - name: Commit changes
+      if: ${{ env.COMMIT_MSG != null }}
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: ${{ env.COMMIT_MSG }}
