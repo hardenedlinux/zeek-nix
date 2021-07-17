@@ -80,6 +80,11 @@
                 help = pkgs.nvfetcher-bin.meta.description;
                 command = "cd $DEVSHELL_ROOT/nix; ${pkgs.nvfetcher-bin}/bin/nvfetcher -c ./sources.toml --no-output $@";
               }
+              {
+                name = "nvfetcher-update";
+                help = pkgs.nvfetcher-bin.meta.description + " github action";
+                command = "cd $DEVSHELL_ROOT/nix; git reset --hard; ${pkgs.nvfetcher-bin}/bin/nvfetcher -c ./sources.toml --no-output $@";
+              }
             ];
           };
           #

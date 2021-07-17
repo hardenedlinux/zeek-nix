@@ -31,7 +31,7 @@ jobs:
 
     - name: Run nvfetcher
       run: |
-        nix -Lv develop --command nvfetcher --commit-changes
+        nix -Lv develop --command nvfetcher-update --commit-changes
 
     - name: Build Zeek Release
       run: nix -Lv build ./#zeek-release
