@@ -22,6 +22,8 @@ jobs:
       with:
         name: zeek
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Setup GIT user
+      uses: fregante/setup-git-user@v1
 
     - name: Nix Flake Check
       run: nix -Lv flake check
